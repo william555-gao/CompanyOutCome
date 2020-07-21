@@ -2,14 +2,14 @@
 server:
   port: 8088
   servlet:
-    context-path: /springbootdemo
+    context-path: /company
 spring:
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-
-
+url:
+ image: D:\nuoyunimagefile
 ---
 spring:
   profiles: development
@@ -17,7 +17,7 @@ spring:
   #jdbc
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cjylocaldatabase?useUnicode=true&characterEncoding-UTF-8
+    url: jdbc:mysql://localhost:3306/companydemo?useUnicode=true&characterEncoding-UTF-8
     username: root
     password: root1234
     type: com.alibaba.druid.pool.DruidDataSource

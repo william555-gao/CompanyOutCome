@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.example.springbootdemo.mapper.StaffInformationDOMapper">
+    <resultMap id="BaseResultMap" type="com.company.example.springbootdemo.entity.StaffInformationDO">
+        <id column="staff_id" jdbcType="INTEGER" property="staffId"/>
+        <result column="staff_profile_photo_url" jdbcType="VARCHAR" property="staffProfilePhotoUrl"/>
+        <result column="staff_name" jdbcType="VARCHAR" property="staffName"/>
+        <result column="staff_department" jdbcType="VARCHAR" property="staffDepartment"/>
+        <result column="staff_sex" jdbcType="VARCHAR" property="staffSex"/>
+        <result column="staff_birth_day" jdbcType="DATE" property="staffBirthDay"/>
+        <result column="staff_phone" jdbcType="VARCHAR" property="staffPhone"/>
+        <result column="staff_email" jdbcType="VARCHAR" property="staffEmail"/>
+        <result column="staff_id_card" jdbcType="VARCHAR" property="staffIdCard"/>
+        <result column="staff_location" jdbcType="VARCHAR" property="staffLocation"/>
+        <result column="staff_domain" jdbcType="VARCHAR" property="staffDomain"/>
+        <result column="staff_certifficare_url" jdbcType="VARCHAR" property="staffCertifficareUrl"/>
+        <result column="staff_description" jdbcType="VARCHAR" property="staffDescription"/>
+        <result column="staff_outcome_id" jdbcType="INTEGER" property="staffOutcomeId"/>
+        <result column="staff_outcome_flag" jdbcType="VARCHAR" property="staffOutcomeFlag"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    staff_id, staff_profile_photo_url, staff_name, staff_department, staff_sex, staff_birth_day, 
+    staff_phone, staff_email, staff_id_card, staff_location, staff_domain, staff_certifficare_url, 
+    staff_description, staff_outcome_id, staff_outcome_flag
+  </sql>
+    <select id="selectByExample" parameterType="com.company.example.springbootdemo.entity.StaffInformationDOExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from staff_information
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from staff_information
+        where staff_id = #{staffId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from staff_information
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.company.example.springbootdemo.entity.StaffInformationDOExample">
+        delete from staff_information
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.company.example.springbootdemo.entity.StaffInformationDO">
+    insert into staff_information (staff_id, staff_profile_photo_url, staff_name, 
+      staff_department, staff_sex, staff_birth_day, 
+      staff_phone, staff_email, staff_id_card, 
+      staff_location, staff_domain, staff_certifficare_url, 
+      staff_description, staff_outcome_id, staff_outcome_flag
+      )
+    values (#{staffId,jdbcType=INTEGER}, #{staffProfilePhotoUrl,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
+      #{staffDepartment,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, #{staffBirthDay,jdbcType=DATE}, 
+      #{staffPhone,jdbcType=VARCHAR}, #{staffEmail,jdbcType=VARCHAR}, #{staffIdCard,jdbcType=VARCHAR}, 
+      #{staffLocation,jdbcType=VARCHAR}, #{staffDomain,jdbcType=VARCHAR}, #{staffCertifficareUrl,jdbcType=VARCHAR}, 
+      #{staffDescription,jdbcType=VARCHAR}, #{staffOutcomeId,jdbcType=INTEGER}, #{staffOutcomeFlag,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.company.example.springbootdemo.entity.StaffInformationDO">
+        insert into staff_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="staffId != null">
+                staff_id,
+            </if>
+            <if test="staffProfilePhotoUrl != null">
+                staff_profile_photo_url,
+            </if>
+            <if test="staffName != null">
+                staff_name,
+            </if>
+            <if test="staffDepartment != null">
+                staff_department,
+            </if>
+            <if test="staffSex != null">
+                staff_sex,
+            </if>
+            <if test="staffBirthDay != null">
+                staff_birth_day,
+            </if>
+            <if test="staffPhone != null">
+                staff_phone,
+            </if>
+            <if test="staffEmail != null">
+                staff_email,
+            </if>
+            <if test="staffIdCard != null">
+                staff_id_card,
+            </if>
+            <if test="staffLocation != null">
+                staff_location,
+            </if>
+            <if test="staffDomain != null">
+                staff_domain,
+            </if>
+            <if test="staffCertifficareUrl != null">
+                staff_certifficare_url,
+            </if>
+            <if test="staffDescription != null">
+                staff_description,
+            </if>
+            <if test="staffOutcomeId != null">
+                staff_outcome_id,
+            </if>
+            <if test="staffOutcomeFlag != null">
+                staff_outcome_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="staffId != null">
+                #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="staffProfilePhotoUrl != null">
+                #{staffProfilePhotoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="staffName != null">
+                #{staffName,jdbcType=VARCHAR},
+            </if>
+            <if test="staffDepartment != null">
+                #{staffDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="staffSex != null">
+                #{staffSex,jdbcType=VARCHAR},
+            </if>
+            <if test="staffBirthDay != null">
+                #{staffBirthDay,jdbcType=DATE},
+            </if>
+            <if test="staffPhone != null">
+                #{staffPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="staffEmail != null">
+                #{staffEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="staffIdCard != null">
+                #{staffIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="staffLocation != null">
+                #{staffLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="staffDomain != null">
+                #{staffDomain,jdbcType=VARCHAR},
+            </if>
+            <if test="staffCertifficareUrl != null">
+                #{staffCertifficareUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="staffDescription != null">
+                #{staffDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="staffOutcomeId != null">
+                #{staffOutcomeId,jdbcType=INTEGER},
+            </if>
+            <if test="staffOutcomeFlag != null">
+                #{staffOutcomeFlag,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.company.example.springbootdemo.entity.StaffInformationDOExample"
+            resultType="java.lang.Long">
+        select count(*) from staff_information
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update staff_information
+        <set>
+            <if test="record.staffId != null">
+                staff_id = #{record.staffId,jdbcType=INTEGER},
+            </if>
+            <if test="record.staffProfilePhotoUrl != null">
+                staff_profile_photo_url = #{record.staffProfilePhotoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffName != null">
+                staff_name = #{record.staffName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffDepartment != null">
+                staff_department = #{record.staffDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffSex != null">
+                staff_sex = #{record.staffSex,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffBirthDay != null">
+                staff_birth_day = #{record.staffBirthDay,jdbcType=DATE},
+            </if>
+            <if test="record.staffPhone != null">
+                staff_phone = #{record.staffPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffEmail != null">
+                staff_email = #{record.staffEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffIdCard != null">
+                staff_id_card = #{record.staffIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffLocation != null">
+                staff_location = #{record.staffLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffDomain != null">
+                staff_domain = #{record.staffDomain,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffCertifficareUrl != null">
+                staff_certifficare_url = #{record.staffCertifficareUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffDescription != null">
+                staff_description = #{record.staffDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="record.staffOutcomeId != null">
+                staff_outcome_id = #{record.staffOutcomeId,jdbcType=INTEGER},
+            </if>
+            <if test="record.staffOutcomeFlag != null">
+                staff_outcome_flag = #{record.staffOutcomeFlag,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update staff_information
+        set staff_id = #{record.staffId,jdbcType=INTEGER},
+        staff_profile_photo_url = #{record.staffProfilePhotoUrl,jdbcType=VARCHAR},
+        staff_name = #{record.staffName,jdbcType=VARCHAR},
+        staff_department = #{record.staffDepartment,jdbcType=VARCHAR},
+        staff_sex = #{record.staffSex,jdbcType=VARCHAR},
+        staff_birth_day = #{record.staffBirthDay,jdbcType=DATE},
+        staff_phone = #{record.staffPhone,jdbcType=VARCHAR},
+        staff_email = #{record.staffEmail,jdbcType=VARCHAR},
+        staff_id_card = #{record.staffIdCard,jdbcType=VARCHAR},
+        staff_location = #{record.staffLocation,jdbcType=VARCHAR},
+        staff_domain = #{record.staffDomain,jdbcType=VARCHAR},
+        staff_certifficare_url = #{record.staffCertifficareUrl,jdbcType=VARCHAR},
+        staff_description = #{record.staffDescription,jdbcType=VARCHAR},
+        staff_outcome_id = #{record.staffOutcomeId,jdbcType=INTEGER},
+        staff_outcome_flag = #{record.staffOutcomeFlag,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.company.example.springbootdemo.entity.StaffInformationDO">
+        update staff_information
+        <set>
+            <if test="staffProfilePhotoUrl != null">
+                staff_profile_photo_url = #{staffProfilePhotoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="staffName != null">
+                staff_name = #{staffName,jdbcType=VARCHAR},
+            </if>
+            <if test="staffDepartment != null">
+                staff_department = #{staffDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="staffSex != null">
+                staff_sex = #{staffSex,jdbcType=VARCHAR},
+            </if>
+            <if test="staffBirthDay != null">
+                staff_birth_day = #{staffBirthDay,jdbcType=DATE},
+            </if>
+            <if test="staffPhone != null">
+                staff_phone = #{staffPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="staffEmail != null">
+                staff_email = #{staffEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="staffIdCard != null">
+                staff_id_card = #{staffIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="staffLocation != null">
+                staff_location = #{staffLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="staffDomain != null">
+                staff_domain = #{staffDomain,jdbcType=VARCHAR},
+            </if>
+            <if test="staffCertifficareUrl != null">
+                staff_certifficare_url = #{staffCertifficareUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="staffDescription != null">
+                staff_description = #{staffDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="staffOutcomeId != null">
+                staff_outcome_id = #{staffOutcomeId,jdbcType=INTEGER},
+            </if>
+            <if test="staffOutcomeFlag != null">
+                staff_outcome_flag = #{staffOutcomeFlag,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where staff_id = #{staffId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.company.example.springbootdemo.entity.StaffInformationDO">
+    update staff_information
+    set staff_profile_photo_url = #{staffProfilePhotoUrl,jdbcType=VARCHAR},
+      staff_name = #{staffName,jdbcType=VARCHAR},
+      staff_department = #{staffDepartment,jdbcType=VARCHAR},
+      staff_sex = #{staffSex,jdbcType=VARCHAR},
+      staff_birth_day = #{staffBirthDay,jdbcType=DATE},
+      staff_phone = #{staffPhone,jdbcType=VARCHAR},
+      staff_email = #{staffEmail,jdbcType=VARCHAR},
+      staff_id_card = #{staffIdCard,jdbcType=VARCHAR},
+      staff_location = #{staffLocation,jdbcType=VARCHAR},
+      staff_domain = #{staffDomain,jdbcType=VARCHAR},
+      staff_certifficare_url = #{staffCertifficareUrl,jdbcType=VARCHAR},
+      staff_description = #{staffDescription,jdbcType=VARCHAR},
+      staff_outcome_id = #{staffOutcomeId,jdbcType=INTEGER},
+      staff_outcome_flag = #{staffOutcomeFlag,jdbcType=VARCHAR}
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+</mapper>

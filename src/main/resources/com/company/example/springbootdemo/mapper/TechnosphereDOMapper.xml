@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.example.springbootdemo.mapper.TechnosphereDOMapper">
+    <resultMap id="BaseResultMap" type="com.company.example.springbootdemo.entity.TechnosphereDO">
+        <id column="technosphere_id" jdbcType="INTEGER" property="technosphereId"/>
+        <result column="technosphere_name" jdbcType="VARCHAR" property="technosphereName"/>
+        <result column="technosphere_description" jdbcType="VARCHAR" property="technosphereDescription"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+      technosphere_id, technosphere_name, technosphere_description
+  </sql>
+    <select id="selectByExample" parameterType="com.company.example.springbootdemo.entity.TechnosphereDOExample"
+            resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+        from new_technosphere
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+      from new_technosphere
+      where technosphere_id = #{technosphereId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from new_technosphere
+      where technosphere_id = #{technosphereId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.company.example.springbootdemo.entity.TechnosphereDOExample">
+        delete from new_technosphere
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+    <insert id="insert" parameterType="com.company.example.springbootdemo.entity.TechnosphereDO">
+        insert into new_technosphere (technosphere_id, technosphere_name,
+        technosphere_description)
+        values (#{technosphereId,jdbcType=INTEGER}, #{technosphereName,jdbcType=VARCHAR},
+        #{technosphereDescription,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.company.example.springbootdemo.entity.TechnosphereDO">
+        insert into new_technosphere
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="technosphereId != null">
+            technosphere_id,
+      </if>
+        <if test="technosphereName != null">
+            technosphere_name,
+      </if>
+        <if test="technosphereDescription != null">
+            technosphere_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="technosphereId != null">
+            #{technosphereId,jdbcType=INTEGER},
+      </if>
+        <if test="technosphereName != null">
+            #{technosphereName,jdbcType=VARCHAR},
+      </if>
+        <if test="technosphereDescription != null">
+            #{technosphereDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <select id="countByExample" parameterType="com.company.example.springbootdemo.entity.TechnosphereDOExample"
+            resultType="java.lang.Long">
+        select count(*) from new_technosphere
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+      update new_technosphere
+    <set>
+        <if test="record.technosphereId != null">
+            technosphere_id = #{record.technosphereId,jdbcType=INTEGER},
+      </if>
+        <if test="record.technosphereName != null">
+            technosphere_name = #{record.technosphereName,jdbcType=VARCHAR},
+      </if>
+        <if test="record.technosphereDescription != null">
+            technosphere_description = #{record.technosphereDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+      update new_technosphere
+      set technosphere_id = #{record.technosphereId,jdbcType=INTEGER},
+      technosphere_name = #{record.technosphereName,jdbcType=VARCHAR},
+      technosphere_description = #{record.technosphereDescription,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.company.example.springbootdemo.entity.TechnosphereDO">
+        update new_technosphere
+    <set>
+        <if test="technosphereName != null">
+            technosphere_name = #{technosphereName,jdbcType=VARCHAR},
+      </if>
+        <if test="technosphereDescription != null">
+            technosphere_description = #{technosphereDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+        where technosphere_id = #{technosphereId,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.company.example.springbootdemo.entity.TechnosphereDO">
+        update new_technosphere
+        set technosphere_name = #{technosphereName,jdbcType=VARCHAR},
+        technosphere_description = #{technosphereDescription,jdbcType=VARCHAR}
+        where technosphere_id = #{technosphereId,jdbcType=INTEGER}
+  </update>
+</mapper>
